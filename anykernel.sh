@@ -15,6 +15,7 @@ do.f2fs_patch=1
 do.rem_encryption=0
 device.name1=land
 supported.versions=
+supported.patchlevels=
 '; } # end properties
 
 # shell variables
