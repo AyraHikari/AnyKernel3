@@ -162,6 +162,11 @@ if [ "$(file_getprop anykernel.sh do.devicecheck)" == 1 ]; then
   if [ ! "$match" ]; then
     abort " " "Unsupported device. Aborting...";
   fi;
+  if [ "$(file_getprop /system/build.prop ro.treble.enabled)" == "true" ]; then
+    dtb=/tmp/anykernel/unified/treble;
+  else
+    dtb=/tmp/anykernel/unified/nontreble;
+  fi;
 fi;
 
 supported_ver=$(file_getprop anykernel.sh supported.versions | $bb tr -d '[:space:]');
