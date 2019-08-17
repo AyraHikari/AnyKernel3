@@ -239,6 +239,12 @@ ui_print " ";
 
 
 ui_print "Installing...";
+
+cat /tmp/anykernel/kernel/Image.gz $dtb/*.dtb > /tmp/anykernel/Image.gz-dtb;
+if [ $? != "0" ]; then
+  abort "DTB append failed. Aborting...";
+fi;
+
 core=$($bb grep -oE 'ak.*core.sh' anykernel.sh);
 test -f tools/$core || $bb ln -s $home/tools/ak*-core.sh $home/tools/$core;
 PATH="$home/bin:$PATH" home=$home $bb ash anykernel.sh $2;
