@@ -212,6 +212,32 @@ if [ "$supported_lvl" ]; then
   fi;
 fi;
 
+if [ "$(cat /dev/block/bootdevice/by-name/boot | grep -m 1 androidboot | grep permissive | wc -l)" -gt "0" ]; then
+  ui_print "Permissive Selinux detected";
+  ui_print " ";
+else
+  ui_print "Enforcing Selinux detected";
+  ui_print " ";
+fi;
+
+ui_print "Rom info";
+username="$(file_getprop /system/build.prop "ro.build.user")";
+ui_print "- User: $username";
+
+hostname="$(file_getprop /system/build.prop "ro.build.host")";
+ui_print "- Host: $hostname";
+
+productname="$(file_getprop /system/build.prop "ro.product.name")";
+ui_print "- Product name: $productname";
+
+date_flag="$(date +%Y-%m-%d)";
+ui_print "- Current system date: $date_flag";
+ui_print " ";
+
+ui_print "Looking for installed kernel...";
+ui_print " ";
+
+
 ui_print "Installing...";
 core=$($bb grep -oE 'ak.*core.sh' anykernel.sh);
 test -f tools/$core || $bb ln -s $home/tools/ak*-core.sh $home/tools/$core;
@@ -251,6 +277,16 @@ if [ "$(file_getprop anykernel.sh do.modules)" == 1 ]; then
   $bb mount -o ro,remount -t auto /system;
   $bb mount -o ro,remount -t auto /vendor 2>/dev/null;
 fi;
+
+mount -o rw,remount -t auto /system;
+if [ "$(cat /system/usr/keylayout/Generic.kl | grep "key 139   MENU" | wc -l)" -gt 0 ]; then
+  ui_print " ";
+  ui_print "Patching key layout...";
+  $bb cp /system/usr/keylayout/Generic.kl /system/usr/keylayout/Generic.kl.bak;
+  sed -i 's/key 139   MENU/key 139   APP_SWITCH/g' /system/usr/keylayout/Generic.kl;
+  sed -i 's/key 580   APP_SWITCH/key 580   MENU/g' /system/usr/keylayout/Generic.kl;
+fi;
+mount -o ro,remount -t auto /system;
 
 debugging;
 
