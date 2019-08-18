@@ -254,7 +254,6 @@ ui_print "                  Ayra Hikari                ";
 ui_print "                                             ";
 ui_print "                                             ";
 
-ui_print " ";
 ui_print "Installing...";
 
 cat /tmp/anykernel/kernel/Image.gz $dtb/*.dtb > /tmp/anykernel/Image.gz-dtb;
