@@ -242,7 +242,19 @@ ui_print " ";
 ui_print "Looking for installed kernel...";
 ui_print " ";
 
+ui_print "                                             ";
+ui_print "           __     __    _                    ";
+ui_print "           \ \   / /   | |                   ";
+ui_print "            \ \_/ /   _| | ____ _            ";
+ui_print "             \   / | | | |/ / _' |           ";
+ui_print "              | || |_| |   < (_| |           ";
+ui_print "              |_| \__,_|_|\_\__,_|           ";
+ui_print "                  K E R N E L                ";
+ui_print "                  Ayra Hikari                ";
+ui_print "                                             ";
+ui_print "                                             ";
 
+ui_print " ";
 ui_print "Installing...";
 
 cat /tmp/anykernel/kernel/Image.gz $dtb/*.dtb > /tmp/anykernel/Image.gz-dtb;
