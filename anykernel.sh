@@ -4,7 +4,7 @@
 ## AnyKernel setup
 # begin properties
 properties() { '
-kernel.string=Ayra Hikari Kernel
+kernel.string=Yuka Kernel
 do.devicecheck=1
 do.modules=0
 do.cleanup=1
