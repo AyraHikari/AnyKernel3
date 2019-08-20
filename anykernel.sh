@@ -200,6 +200,8 @@ fi;
 # init.rc
 backup_file init.rc;
 replace_string init.rc "cpuctl cpu,timer_slack" "mount cgroup none /dev/cpuctl cpu" "mount cgroup none /dev/cpuctl cpu,timer_slack";
+grep "import /init.spectrum.rc" init.rc >/dev/null || sed -i '1,/.*import.*/s/.*import.*/import \/init.spectrum.rc\n&/' init.rc
+insert_line init.rc "init.yuka.rc" after "import /init.usb.rc" "import /init.yuka.rc";
 
 # init.tuna.rc
 backup_file init.tuna.rc;
